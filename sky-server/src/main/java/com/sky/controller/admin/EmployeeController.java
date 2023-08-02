@@ -97,4 +97,15 @@ public class EmployeeController {
         PageResult pageResult = employeeService.pageQuery(employeePageQueryDTO);
         return Result.success(pageResult);
     }
+
+    /**
+     * 员工账号状态
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation("员工账号状态")
+    public Result startOrStop(@PathVariable Integer status, Long id) {
+        log.info("员工账号状态：{},{}", status, id);
+        employeeService.startOrStop(status, id);
+        return Result.success();
+    }
 }
