@@ -34,4 +34,25 @@ public interface EmployeeService {
      * @param id
      */
     void startOrStop(Integer status, Long id);
+
+    /**
+     * 编辑员工信息
+     * @param employeeDTO
+     */
+    void updateInform(EmployeeDTO employeeDTO);
+
+    /**
+     * 根据id查询员工信息
+     * @param id
+     * @return
+     */
+    Employee getById(Long id);
+
+    /**
+     * 修改密码
+     * @param empId
+     * @param newPassword
+     * @param oldPassword
+     */
+    void editPassword(Long empId, String newPassword, String oldPassword);
 }

@@ -117,4 +117,43 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeMapper.update(employee);
     }
 
+    @Override
+    public void updateInform(EmployeeDTO employeeDTO) {
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(employeeDTO, employee);
+
+        //设置修改时间
+        employee.setUpdateTime(LocalDateTime.now());
+
+        //设置修改人
+        employee.setUpdateUser(BaseContext.getCurrentId());
+
+        employeeMapper.update(employee);
+    }
+
+    @Override
+    public Employee getById(Long id) {
+        Employee employee = employeeMapper.getById(id);
+        employee.setPassword("*******");
+        return employee;
+    }
+
+    @Override
+    public void editPassword(Long empId, String newPassword, String oldPassword) {
+        //1、根据员工id查询员工信息
+        Employee employee = employeeMapper.getById(empId);
+
+        //2、比对旧密码是否正确
+        if (!DigestUtils.md5DigestAsHex(oldPassword.getBytes()).equals(employee.getPassword())) {
+            //旧密码不正确
+            throw new PasswordErrorException(MessageConstant.PASSWORD_ERROR);
+        }
+
+        //3、修改密码
+        Employee updateEmployee = Employee.builder()
+                .password(DigestUtils.md5DigestAsHex(newPassword.getBytes()))
+                .build();
+        employeeMapper.update(updateEmployee);
+    }
+
 }

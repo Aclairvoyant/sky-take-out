@@ -108,4 +108,36 @@ public class EmployeeController {
         employeeService.startOrStop(status, id);
         return Result.success();
     }
+
+    /**
+     * 编辑员工信息
+     */
+    @PutMapping()
+    @ApiOperation("编辑员工信息")
+    public Result updateInform(@RequestBody EmployeeDTO employeeDTO) {
+        log.info("编辑员工信息：{}", employeeDTO);
+        employeeService.updateInform(employeeDTO);
+        return Result.success();
+    }
+
+    /**
+     * 根据id查询员工信息
+     */
+    @GetMapping("/{id}")
+    @ApiOperation("根据id查询员工信息")
+    public Result<Employee> getById(@PathVariable Long id) {
+        Employee employee = employeeService.getById(id);
+        return Result.success(employee);
+    }
+
+    /**
+     * 修改密码
+     */
+    @PutMapping("/editPassword")
+    @ApiOperation("修改密码")
+    public Result editPassword(Long empId, String newPassword, String oldPassword) {
+        log.info("修改密码：{},{}", empId, newPassword);
+        employeeService.editPassword(empId, newPassword, oldPassword);
+        return Result.success();
+    }
 }
