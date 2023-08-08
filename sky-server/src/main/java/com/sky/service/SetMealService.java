@@ -1,4 +1,4 @@
-package com.sky.controller.admin;
+package com.sky.service;
 
 import com.sky.annotation.AutoFill;
 import com.sky.dto.SetmealDTO;

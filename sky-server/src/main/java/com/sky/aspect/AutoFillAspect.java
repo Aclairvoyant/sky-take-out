@@ -44,7 +44,7 @@ public class AutoFillAspect {
      * 前置通知,在目标方法执行之前执行
      */
     @Before("autoFillPointCut()")
-    public void autoFill(JoinPoint joinPoint) throws NoSuchMethodException {
+    public void autoFill(JoinPoint joinPoint) {
         log.info("开始进行公共字段填充...");
 
         //获取方法名
